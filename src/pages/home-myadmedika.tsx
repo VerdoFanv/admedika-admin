@@ -349,6 +349,7 @@ export default function Home() {
 											aspectRatio="9/2"
 											title="Recommended size 1926x422px. Max filesize 6MB. Accepted format: jpg, png."
 											footnote="Recommended size 1926x422px. Max filesize 6MB. Accepted format: jpg, png."
+											acceptedFormat={[ `.jpg`, `.png` ]}
 										/>
 									</div>
 									<div className="row">
@@ -377,6 +378,7 @@ export default function Home() {
 											aspectRatio="10/10"
 											title="Recommended size 1141x1080px. Max filesize 3MB. Accepted format: jpg, png."
 											footnote="Recommended size 1141x1080px. Max filesize 3MB. Accepted format: jpg, png."
+											acceptedFormat={[ `.jpg`, `.png` ]}
 										/>
 									</div>
 									<div className="row">
@@ -391,6 +393,7 @@ export default function Home() {
 										aspectRatio="10/6"
 										title="Recommended size 1920x1080px. Max filesize 3MB. Accepted format: jpg, png."
 										footnote="Recommended size 1920x1080px. Max filesize 3MB. Accepted format: jpg, png."
+										acceptedFormat={[ `.jpg`, `.png` ]}
 									/>
 								</div>
 							</div>

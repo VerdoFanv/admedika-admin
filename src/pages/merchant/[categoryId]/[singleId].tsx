@@ -160,6 +160,9 @@ export default function MerchantSingleDetail() {
 							<div className="form-fieldset">
 								<div className="form-fieldset-body">
 									<div className="row">
+										<FormFile setForm={setForm} name="page_image" type="image" label="Background image" size="large" aspectRatio="15/4" footnote="Recommended size 1920x1080px. Max filesize 3MB. Accepted format: jpg, png." title="Recommended size 1920x1080px. Max filesize 3MB. Accepted format: jpg, png." acceptedFormat={[ `.jpg`, `.png` ]} />
+									</div>
+									<div className="row">
 										<FormFile
 											setForm={setForm}
 											type="image"
@@ -168,6 +171,7 @@ export default function MerchantSingleDetail() {
 											aspectRatio="10/6"
 											title="Recommended size 400x180px. Max filesize 3MB. Accepted format: jpg, png."
 											footnote="Recommended size 400x180px. Max filesize 3MB. Accepted format: jpg, png."
+											acceptedFormat={[ `.jpg`, `.png` ]}
 										/>
 									</div>
 									<TabsNavigation

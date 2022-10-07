@@ -124,7 +124,7 @@ export default function SettingGeneral() {
 							<h2 className="title">Website Settings</h2>
 						</div>
 						<div className="admin-section-body admin-section-body-graydient">
-							<EiExpandable title="Site Meta Data" desc="Content for search engines">
+							<EiExpandable title="Site Meta Data (Admedika)" desc="Content for search engines">
 								<div className="form-fieldset">
 									<div className="form-fieldset-body">
 										<TabsNavigation
@@ -170,6 +170,98 @@ export default function SettingGeneral() {
 							</EiExpandable>
 						</div>
 						<div className="admin-section-body admin-section-body-graydient">
+							<EiExpandable title="Site Meta Data (MyAdmedika)" desc="Content for search engines">
+								<div className="form-fieldset">
+									<div className="form-fieldset-body">
+										<TabsNavigation
+											listLabel={[ `EN`, `ID` ]}
+											content={[
+												{
+													item: (
+														<div className="row">
+															<FormInput setForm={setForm} name="multilang.meta_title_myadmedika.en" label="Meta Title (EN)" footnote={<span>Recommended: <strong>70</strong> characters.</span>} />
+														</div>
+													)
+												},
+												{
+													item: (
+														<div className="row">
+															<FormInput setForm={setForm} name="multilang.meta_title_myadmedika.id" label="Meta Title (ID)" footnote={<span>Recommended: <strong>70</strong> characters.</span>} />
+														</div>
+													)
+												}
+											]}
+										/>
+										<TabsNavigation
+											listLabel={[ `EN`, `ID` ]}
+											content={[
+												{
+													item: (
+														<div className="row">
+															<FormTextarea setForm={setForm} name="multilang.meta_description_myadmedika.en" label="Meta Description (EN)" footnote={<span>Recommended: <strong>156</strong> characters.</span>} />
+														</div>
+													)
+												},
+												{
+													item: (
+														<div className="row">
+															<FormTextarea setForm={setForm} name="multilang.meta_description_myadmedika.id" label="Meta Description (ID)" footnote={<span>Recommended: <strong>156</strong> characters.</span>} />
+														</div>
+													)
+												}
+											]}
+										/>
+									</div>
+								</div>
+							</EiExpandable>
+						</div>
+						<div className="admin-section-body admin-section-body-graydient">
+							<EiExpandable title="Site Meta Data (MyMerchant)" desc="Content for search engines">
+								<div className="form-fieldset">
+									<div className="form-fieldset-body">
+										<TabsNavigation
+											listLabel={[ `EN`, `ID` ]}
+											content={[
+												{
+													item: (
+														<div className="row">
+															<FormInput setForm={setForm} name="multilang.meta_title_mymerchant.en" label="Meta Title (EN)" footnote={<span>Recommended: <strong>70</strong> characters.</span>} />
+														</div>
+													)
+												},
+												{
+													item: (
+														<div className="row">
+															<FormInput setForm={setForm} name="multilang.meta_title_mymerchant.id" label="Meta Title (ID)" footnote={<span>Recommended: <strong>70</strong> characters.</span>} />
+														</div>
+													)
+												}
+											]}
+										/>
+										<TabsNavigation
+											listLabel={[ `EN`, `ID` ]}
+											content={[
+												{
+													item: (
+														<div className="row">
+															<FormTextarea setForm={setForm} name="multilang.meta_description_mymerchant.en" label="Meta Description (EN)" footnote={<span>Recommended: <strong>156</strong> characters.</span>} />
+														</div>
+													)
+												},
+												{
+													item: (
+														<div className="row">
+															<FormTextarea setForm={setForm} name="multilang.meta_description_mymerchant.id" label="Meta Description (ID)" footnote={<span>Recommended: <strong>156</strong> characters.</span>} />
+														</div>
+													)
+												}
+											]}
+										/>
+									</div>
+								</div>
+							</EiExpandable>
+						</div>
+						<div className="admin-section-body admin-section-body-graydient">
 							<EiExpandable title="Email Addresses" desc="Email addresses of your website">
 								<div className="form-fieldset">
 									<div className="form-fieldset-body">
@@ -185,10 +277,16 @@ export default function SettingGeneral() {
 								<div className="form-fieldset">
 									<div className="form-fieldset-body">
 										<div className="row">
-											<FormFile setForm={setForm} styleBackgroundColor="white" name="image.header_logo" type="image" label="Logo Black" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
+											<FormFile setForm={setForm} styleBackgroundColor="white" name="image.header_logo" type="image" label="Logo Black (Admedika)" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
 										</div>
 										<div className="row">
-											<FormFile setForm={setForm} styleBackgroundColor="black" name="image.header_logo_white" type="image" label="Logo White" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
+											<FormFile setForm={setForm} styleBackgroundColor="black" name="image.header_logo_white" type="image" label="Logo White (Admedika)" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
+										</div>
+										<div className="row">
+											<FormFile setForm={setForm} styleBackgroundColor="black" name="image.header_logo_myadmedika" type="image" label="Logo White (MyAdmedika)" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
+										</div>
+										<div className="row">
+											<FormFile setForm={setForm} styleBackgroundColor="black" name="image.header_logo_mymerchant" type="image" label="Logo White (MyMerchant)" size="medium" aspectRatio="2/1" footnote="Max filesize 1MB. Accepted format: jpg, png, svg." acceptedFormat={[ `.jpg`, `.png`, `.svg` ]} />
 										</div>
 									</div>
 								</div>
