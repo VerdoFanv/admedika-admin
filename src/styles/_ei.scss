@@ -1,0 +1,297 @@
+.ei-expandable {
+
+	&-head {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+
+		> .text {
+
+			.title {
+				@include font-style-h5;
+				margin-bottom: 0;
+			}
+
+			.desc {
+				@include font-style-caption;
+				color: $color-text-light;
+				margin-top: 2px;
+			}
+		}
+
+		> .button {
+			@include font-style-footnote;
+			width: 76px;
+		}
+	}
+
+	&-body {
+
+		> .inner {
+			padding-top: 24px;
+		}
+	}
+}
+
+.ei-notification {
+	display: flex;
+	justify-content: center;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 24px;
+	z-index: 19;
+
+	&.ei-notification-global {
+		left: 0;
+	}
+
+	&.ei-notification-app {
+		left: 272px;
+	}
+
+	&-inner {
+		background-color: $white;
+		border-radius: 8px;
+		box-shadow: $box-shadow-600;
+		margin: 0 auto;
+		max-width: 50%;
+		overflow: hidden;
+		padding: 16px 44px 16px 16px;
+		pointer-events: auto;
+		position: relative;
+		width: $width-crawler;
+
+		&:before {
+			content: "";
+			background-color: $color-two-400;
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 4px;
+
+			.ei-notification-error & {
+				background-color: $color-alert-dark;
+			}
+
+			.ei-notification-success & {
+				background-color: $color-success-dark;
+			}
+		}
+	}
+
+	&-text {
+
+		.text {
+			@include font-style-footnote;
+			font-weight: 500;
+			margin-bottom: 0;
+		}
+
+		.footnote {
+			@include font-style-caption;
+			color: $color-text-light;
+			margin-top: 2px;
+		}
+	}
+
+	&-close {
+		color: $color-text-lighter;
+		position: absolute;
+		right: 16px;
+		top: 16px;
+
+		.icon {
+			display: block;
+			height: 18px;
+			width: 18px;
+		}
+	}
+}
+
+.ei-popup {
+	background-color: rgba($black, 0.8);
+	bottom: 0;
+	left: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 8;
+
+	&-open {
+		overflow: hidden;
+	}
+
+	&-wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: 100%;
+		overflow-y: visible;
+	}
+
+	&-content {
+		background-color: $color-0;
+		border-radius: 4px;
+		margin: 32px auto;
+		max-width: $width-crawler;
+		position: relative;
+		width: 100%;
+
+		&-small {
+			max-width: 512px;
+		}
+
+		&-large {
+			max-width: $width-walker;
+		}
+
+		&.is-loading {
+
+			&:before {
+				border-radius: 12px;
+			}
+		}
+	}
+
+	&-close {
+		background-color: transparent;
+		border: 0;
+		color: $color-text-lighter;
+		display: block;
+		height: 32px;
+		outline: none;
+		padding: 2px;
+		position: absolute;
+		right: 12px;
+		top: 12px;
+		transition: all 0.2s ease-out;
+		width: 32px;
+
+		&:hover,
+		&:focus {
+			color: $color-text;
+		}
+
+		.icon {
+			display: block;
+			height: 100%;
+			width: 100%;
+		}
+	}
+
+	&-head {
+		margin-bottom: -16px;
+		padding: 48px 48px 0;
+	}
+
+	&-body {
+		padding: 48px;
+
+		.popup-box-content-small & {
+			padding: 32px;
+		}
+
+		.section {
+
+			&:not(:last-child) {
+				@include whitespace(0 0 0.5);
+			}
+		}
+	}
+}
+
+.ei-pagination {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+
+	&-counter {
+		@include font-style-caption;
+		color: $color-text-light;
+		font-weight: 500;
+		margin-bottom: 0;
+	}
+
+	&-nav {
+		align-items: center;
+		display: flex;
+		justify-content: flex-end;
+
+		.link {
+			@include font-style-callout;
+			color: $color-text;
+			min-width: 32px;
+
+			&:hover,
+			&:focus {
+				color: $color-one-600;
+				text-decoration: none;
+			}
+		}
+	}
+
+	&-prev,
+	&-next {
+
+		.link {
+			align-items: center;
+			display: flex;
+
+			&:disabled {
+				color: $color-text-lighter;
+			}
+		}
+
+		.label {
+			@include font-style-caption;
+		}
+
+		.icon {
+			height: 24px;
+			width: 24px;
+		}
+	}
+
+	&-list {
+		margin: 0 12px;
+
+		.items {
+			display: flex;
+		}
+
+		.item {
+
+			&:not(:last-child) {
+				margin-right: 4px;
+			}
+		}
+
+		.link {
+			display: block;
+			font-weight: 400;
+			padding: 4px;
+			text-align: center;
+
+			&.is-current {
+				background-color: $color-100;
+				border-radius: 4px;
+				color: $color-text;
+				font-weight: 700;
+				pointer-events: none;
+			}
+		}
+	}
+
+	&-infinite {
+		flex: 1 1 100%;
+
+		.button {
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,175 @@
+// LAYOUT
+$width-max: 1112px;
+$width-sidebar: 272px;
+
+$width-origin: 320px;
+$width-creeper: 414px;
+$width-crawler: 640px;
+$width-walker: 768px;
+$width-runner: 1024px;
+$width-jumper: 1112px;
+$width-flyer: 1280px;
+$width-teleporter: 1440px;
+$width-demigod: 1600px;
+$width-god: 1920px;
+
+// space on left and right of wrapper
+// MUST HAVE THE SAME KEYS AS $gutters
+$margins: (
+	origin: 16px,
+	creeper: 24px,
+	crawler: 32px,
+	walker: 48px,
+	jumper: 64px,
+	flyer: 80px
+);
+
+// space between grids
+// MUST HAVE THE SAME KEYS AS $margins
+$gutters: (
+	origin: 16px,
+	creeper: 24px,
+	crawler: 24px,
+	walker:	32px,
+	jumper: 32px,
+	flyer: 48px
+);
+
+// COLOR
+$white: #ffffff;
+$black: #000000;
+
+$color-0: $white;
+$color-50: #fafbfb;
+$color-100: #eff0f0;
+$color-200: #dfe1e2;
+$color-300: #c9cecf;
+$color-400: #99a2a4;
+$color-500: #788487;
+$color-600: #58666b;
+$color-700: #38484e;
+$color-800: #2e3d46;
+$color-900: #25313e;
+$color-1000: #19222e;
+
+$color-one-50: #f9fefa;
+$color-one-100: #e1f7e7;
+$color-one-200: #b2e9c4;
+$color-one-300: #85d9a3;
+$color-one-400: #5ac885;
+$color-one-500: #45be76;
+$color-one-600: #37aa6b;
+$color-one-700: #2b9460;
+$color-one-800: #207d53;
+$color-one-900: #166445;
+$color-one-1000: #0e4a35;
+
+$color-two-50: #f5fafa;
+$color-two-100: #cee5e8;
+$color-two-200: #bfdde2;
+$color-two-300: #afd3dd;
+$color-two-400: #9ec8d8;
+$color-two-500: #8dbcd4;
+$color-two-600: #72a3ba;
+$color-two-700: #588a9d;
+$color-two-800: #416f7f;
+$color-two-900: #2c535e;
+$color-two-1000: #19343b;
+
+$color-three-50: #fffef0;
+$color-three-100: #fff5b8;
+$color-three-200: #fdee9e;
+$color-three-300: #fbe583;
+$color-three-400: #f8db6a;
+$color-three-500: #f5d051;
+$color-three-600: #edc445;
+$color-three-700: #d6b233;
+$color-three-800: #ac911b;
+$color-three-900: #836d0a;
+$color-three-1000: #594900;
+
+$color-info-light: #cee1f5;
+$color-info: #9fc3ec;
+$color-info-dark: #2578d4;
+
+$color-success-light: #bdf1b1;
+$color-success: #30cf43;
+$color-success-dark: #0ba300;
+
+$color-warning-light: #f7e4ab;
+$color-warning: #f2c121;
+$color-warning-dark: #785f0d;
+
+$color-alert-light: #fbd2d3;
+$color-alert: #faa4a6;
+$color-alert-dark: #ee1b1f;
+
+$color-text-lighter: $color-400;
+$color-text-light: $color-500;
+$color-text: $color-800;
+$color-text-dark: $color-900;
+
+$color-bg-light: $color-100;
+$color-bg: $color-700;
+$color-bg-dark: $color-900;
+
+$color-border-light: $color-200;
+$color-border: $color-300;
+$color-border-dark: $color-400;
+
+$color-dribbble: #ea4c89;
+$color-facebook: #3b5998;
+$color-facebook-alt: #60a2f3;
+$color-googleplus: #cc3732;
+$color-instagram: #cd486b;
+$color-line: #1bb71f;
+$color-linkedin: #0077b5;
+$color-pinterest: #cc2127;
+$color-twitter: #00aced;
+$color-whatsapp: #33d16b;
+$color-youtube: #cd201f;
+
+// SHADOW
+$box-shadow-100: 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.1);
+$box-shadow-200: 0 2px 3px -1px rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.1);
+$box-shadow-300: 0 3px 4px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.1);
+$box-shadow-400: 0 5px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 0 3px rgba(0, 0, 0, 0.1);
+$box-shadow-500: 0 7px 8px 1px rgba(0, 0, 0, 0.06), 0 3px 6px 1px rgba(0, 0, 0, 0.04), 0 0 4px rgba(0, 0, 0, 0.1);
+$box-shadow-600: 0 9px 10px 1px rgba(0, 0, 0, 0.06), 0 4px 8px 1px rgba(0, 0, 0, 0.04), 0 0 5px rgba(0, 0, 0, 0.1);
+$box-shadow-700: 0 10px 12px 2px rgba(0, 0, 0, 0.06), 0 5px 10px 2px rgba(0, 0, 0, 0.04), 0 0 6px rgba(0, 0, 0, 0.1);
+$box-shadow-800: 0 14px 16px 2px rgba(0, 0, 0, 0.06), 0 6px 12px 2px rgba(0, 0, 0, 0.04), 0 0 8px rgba(0, 0, 0, 0.1);
+$box-shadow-900: 0 20px 24px 4px rgba(0, 0, 0, 0.06), 0 8px 16px 4px rgba(0, 0, 0, 0.04), 0 0 12px rgba(0, 0, 0, 0.1);
+$box-shadow-1000: 0 28px 32px 4px rgba(0, 0, 0, 0.06), 0 12px 24px 4px rgba(0, 0, 0, 0.04), 0 0 16px rgba(0, 0, 0, 0.1);
+
+// TYPOGRAPHY
+$sans-serif: "Inter", sans-serif;
+$serif: georgia, serif;
+$monospace: monospace;
+
+// TRANSITION
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+$ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+$ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);

@@ -1,0 +1,296 @@
+@use "sass:color";
+
+.admin-page {
+	@include wrapper-xy($width-max, 0);
+
+	&-header {
+		background-color: $white;
+		padding: 32px 48px;
+		position: sticky;
+		top: 0;
+		z-index: 2;
+	}
+
+	&-content {
+		padding: 48px;
+
+		.admin-page-header + & {
+			padding-top: 16px;
+		}
+
+		> .section {
+
+			&:not(:last-child) {
+				margin-bottom: 32px;
+			}
+		}
+	}
+
+	&-sidebar {
+		background-color: $white;
+		box-shadow: $box-shadow-400;
+		height: 100%;
+		overflow-y: auto;
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: 400px;
+		z-index: 9;
+	}
+}
+
+.admin-header {
+	display: flex;
+	justify-content: space-between;
+
+	&-heading {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+
+		a {
+			color: $color-text;
+
+			&:hover,
+			&:focus {
+				color: $color-text-dark;
+			}
+		}
+
+		> .legend {
+			@include font-style-ant;
+			align-items: center;
+			color: $color-text-light;
+			display: flex;
+			letter-spacing: 0.1em;
+			margin-bottom: 0;
+			text-decoration: none;
+			text-transform: uppercase;
+
+			.icon {
+				height: 16px;
+				margin-right: 2px;
+				width: 16px;
+			}
+		}
+
+		> .title {
+			@include font-style-h2;
+			letter-spacing: -0.02em;
+			margin-bottom: 0;
+
+			.parent {
+				color: $color-text-light;
+				font-weight: 500;
+				letter-spacing: -0.04em;
+
+				a {
+					color: $color-text-light;
+
+					&:hover,
+					&:focus {
+						color: $color-text;
+					}
+				}
+			}
+
+			.sep {
+				color: $color-text-lighter;
+				font-weight: 300;
+				margin: 0 6px;
+			}
+		}
+	}
+
+	&-action {
+		margin-left: 32px;
+		margin-top: 8px;
+
+		> .actions {
+			display: flex;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.action {
+			position: relative;
+
+			+ .action {
+				margin-left: 8px;
+			}
+		}
+	}
+
+	&-submenu {
+		background-color: $white;
+		border-radius: 2px;
+		box-shadow: $box-shadow-700;
+		margin-top: 8px;
+		min-width: 176px;
+		padding: 4px 0;
+		position: absolute;
+		right: 0;
+		top: 100%;
+
+		.link {
+			@include font-style-footnote;
+			color: $color-text;
+			display: block;
+			padding: 6px 12px;
+			text-decoration: none;
+			white-space: nowrap;
+
+			&:hover,
+			&:focus {
+				background-color: $color-50;
+			}
+		}
+	}
+}
+
+.admin-section {
+
+	&-head {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 8px;
+
+		.title {
+			@include font-style-h6;
+			margin-bottom: 0;
+		}
+
+		.actions {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	&-body {
+		border-top: 1px solid $color-border-light;
+		padding: 24px 0;
+
+		&-gray {
+			background-color: $color-50;
+			border-top-color: $color-0;
+			padding: 20px 24px;
+		}
+
+		&-graydient {
+			background-color: $color-50;
+			background-image: linear-gradient($color-50 128px, color.adjust($color-50, $lightness: -2%));
+			border-top-color: $color-0;
+			padding: 20px 24px;
+		}
+	}
+}
+
+.admin-sidebar {
+	padding: 40px 48px 40px 32px;
+
+	&-head {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 32px;
+
+		.heading {
+			margin-bottom: 0;
+		}
+
+		.actions {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+	}
+}
+
+.admin-data {
+
+	&-filters {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 12px;
+	}
+
+	&-filter {
+
+		& + & {
+			margin-left: 8px;
+		}
+
+		.input {
+			@include font-style-callout;
+			border: 1px solid $color-100;
+			cursor: pointer;
+			min-width: 0;
+			padding-right: 24px;
+
+			&:hover,
+			&:focus {
+				background-color: $color-100;
+			}
+		}
+	}
+
+	&-table {
+
+		.table {
+			@include font-style-callout;
+
+			.strong {
+				@include font-style-body;
+			}
+		}
+	}
+
+	&-foot {
+		border-top: 1px solid $color-border;
+		margin-top: 12px;
+		padding-top: 12px;
+	}
+}
+
+.admin-missing {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	padding: 48px;
+
+	&-content {
+		text-align: center;
+
+		.title {
+			margin-bottom: 16px;
+		}
+
+		.subtitle {
+			color: $color-text-light;
+		}
+	}
+}
+
+.page-missing {
+	width: 100%;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+
+	&-content {
+		text-align: center;
+
+		.title {
+			margin-bottom: 16px;
+			color: white;
+		}
+
+		.subtitle {
+			color: $color-text-light;
+		}
+	}
+}

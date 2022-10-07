@@ -1,0 +1,50 @@
+/* stylelint-disable selector-class-pattern */
+.react-select {
+
+	.react-select__control {
+		border-color: $color-border;
+		border-radius: 3px;
+		box-shadow: none;
+		z-index: 1;
+
+		&:hover {
+			border-color: $color-border;
+		}
+
+		.is-error & {
+			border-color: $color-alert;
+
+			&:hover {
+				border-color: $color-alert;
+			}
+		}
+
+		&--is-focused {
+			border-color: $color-one-500;
+
+			&:hover {
+				border-color: $color-one-500;
+			}
+		}
+	}
+
+	.react-select__value-container {
+		padding: 4px 6px;
+	}
+
+	.react-select__placeholder {
+		color: $color-text-lighter;
+	}
+
+	.react-select__single-value {
+		color: $color-text;
+	}
+
+	.react-select__indicator-separator {
+		background-color: $color-border-light;
+	}
+
+	.react-select__menu {
+		z-index: 2;
+	}
+}

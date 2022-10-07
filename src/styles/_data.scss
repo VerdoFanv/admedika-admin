@@ -1,0 +1,35 @@
+.data-fieldset {
+
+	&-body {
+
+		.row {
+
+			&:not(:last-child) {
+				margin-bottom: 24px;
+			}
+		}
+
+		.label {
+			@include font-style-small;
+			color: $color-text-light;
+			margin-bottom: 2px;
+			text-transform: uppercase;
+		}
+
+		.value {
+			margin-bottom: 0;
+
+			&.value-area {
+				background-color: $white;
+				border: 1px solid $color-border-light;
+				border-radius: 3px;
+				padding: 8px;
+				white-space: pre-wrap;
+			}
+
+			.badge {
+				margin-left: 4px;
+			}
+		}
+	}
+}

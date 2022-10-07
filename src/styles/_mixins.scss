@@ -1,0 +1,661 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+
+// HELPERS
+@function strip-unit($value) {
+	@return math.div($value, $value * 0 + 1);
+}
+
+// BREAKPOINTS
+$breakpoints: creeper, crawler, walker, runner, jumper, flyer, teleporter, demigod, god;
+
+@mixin breakpoint($zombie) {
+	@if $zombie == creeper {
+		@media screen and (min-width: $width-creeper) { @content; }
+	}
+	@else if $zombie == crawler {
+		@media screen and (min-width: $width-crawler) { @content; }
+	}
+	@else if $zombie == walker {
+		@media screen and (min-width: $width-walker) { @content; }
+	}
+	@else if $zombie == runner {
+		@media screen and (min-width: $width-runner) { @content; }
+	}
+	@else if $zombie == jumper {
+		@media screen and (min-width: $width-jumper) { @content; }
+	}
+	@else if $zombie == flyer {
+		@media screen and (min-width: $width-flyer) { @content; }
+	}
+	@else if $zombie == teleporter {
+		@media screen and (min-width: $width-teleporter) { @content; }
+	}
+	@else if $zombie == demigod {
+		@media screen and (min-width: $width-demigod) { @content; }
+	}
+	@else if $zombie == god {
+		@media screen and (min-width: $width-god) { @content; }
+	}
+	@else if $zombie == origin-walker {
+		@media screen and (max-width: #{$width-walker - 1}) { @content; }
+	}
+	@else if $zombie == origin-runner {
+		@media screen and (max-width: #{$width-runner - 1}) { @content; }
+	}
+	@else if $zombie == walker-runner {
+		@media screen and (min-width: $width-walker) and (max-width: #{$width-runner - 1}) { @content; }
+	}
+	@else if $zombie == watcher {
+		@media screen and (min-device-pixel-ratio: 1.5),
+			screen and (min-resolution: 144dpi) { @content; }
+	}
+}
+
+// TYPOGRAPHY
+@mixin font-fluid($min-vw, $max-vw, $min-value, $max-value) {
+	font-size: $min-value;
+
+	@media screen and (min-width: $min-vw) {
+		font-size: calc(#{$min-value} + #{strip-unit($max-value - $min-value)} * (100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)});
+	}
+
+	@media screen and (min-width: $max-vw) {
+		font-size: $max-value;
+	}
+}
+
+@mixin font-size-0 {
+	font-size: 0;
+	line-height: 1;
+}
+
+@mixin font-style-d1 {
+	font-size: 64px;
+	font-weight: 900;
+	letter-spacing: -0.01em;
+	line-height: 1.0625;
+}
+
+@mixin font-style-d2 {
+	font-size: 56px;
+	font-weight: 900;
+	line-height: 1.1429;
+}
+
+@mixin font-style-h1 {
+	font-size: 40px;
+	font-weight: 900;
+	line-height: 1;
+}
+
+@mixin font-style-h2 {
+	font-size: 26px;
+	font-weight: 900;
+	line-height: 1.2308;
+}
+
+@mixin font-style-h3 {
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	line-height: 1.1667;
+}
+
+@mixin font-style-h4 {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+@mixin font-style-h5 {
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.3334;
+}
+
+@mixin font-style-h6 {
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.4286;
+}
+
+@mixin font-style-lead {
+	font-size: 18px;
+	line-height: 1.4445;
+}
+
+@mixin font-style-body {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+@mixin font-style-callout {
+	font-size: 15px;
+	line-height: 1.3334;
+}
+
+@mixin font-style-footnote {
+	font-size: 14px;
+	line-height: 1.4286;
+}
+
+@mixin font-style-caption {
+	font-size: 13px;
+	line-height: 1.3847;
+}
+
+@mixin font-style-small {
+	font-size: 12px;
+	line-height: 1.3334;
+}
+
+@mixin font-style-ant {
+	font-size: 11px;
+	line-height: 1.2728;
+}
+
+@mixin font-style-micro {
+	font-size: 10px;
+	line-height: 1.2;
+}
+
+@mixin font-style-button {
+	@include font-style-body;
+	font-weight: 700;
+}
+
+@mixin ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+@mixin hyphenate {
+	// hyphens: auto;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+@mixin flatlist {
+
+	ol,
+	ul {
+		list-style: none;
+		padding-left: 24px;
+		text-indent: -24px;
+
+		li {
+
+			&:before {
+				content: "\2022";
+				display: inline-block;
+				min-width: 24px;
+				padding-right: 4px;
+				text-indent: 0;
+			}
+		}
+	}
+
+	ol {
+
+		li {
+			counter-increment: list-ordered;
+
+			&:before {
+				content: counter(list-ordered) ". ";
+				text-indent: 0;
+			}
+		}
+	}
+}
+
+// LAYOUT
+@mixin ratio($wph: 1 / 1) {
+
+	&:before {
+		content: "";
+		display: inline-block;
+		padding-bottom: math.div(100%, $wph);
+	}
+}
+
+@mixin whitespace($margin: 1) {
+	$length: list.length($margin);
+
+	@if $length == 1 {
+		@if unitless($margin) {
+			margin: $margin * map.get($gutters, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin: $margin * map.get($gutters, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			margin: $margin;
+		}
+	}
+	@else {
+		$margin-top: $margin;
+		$margin-right: $margin;
+		$margin-bottom: $margin;
+		$margin-left: $margin;
+
+		@if $length == 2 {
+			$margin-top: list.nth($margin, 1);
+			$margin-right: list.nth($margin, 2);
+			$margin-bottom: list.nth($margin, 1);
+			$margin-left: list.nth($margin, 2);
+		}
+		@else if $length == 3 {
+			$margin-top: list.nth($margin, 1);
+			$margin-right: list.nth($margin, 2);
+			$margin-bottom: list.nth($margin, 3);
+			$margin-left: list.nth($margin, 2);
+		}
+		@else if $length == 4 {
+			$margin-top: list.nth($margin, 1);
+			$margin-right: list.nth($margin, 2);
+			$margin-bottom: list.nth($margin, 3);
+			$margin-left: list.nth($margin, 4);
+		}
+
+		@if unitless($margin-top) {
+			margin-top: $margin-top * map.get($gutters, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin-top: $margin-top * map.get($gutters, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			margin-top: $margin-top;
+		}
+
+		@if unitless($margin-right) {
+			margin-right: $margin-right * map.get($gutters, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin-right: $margin-right * map.get($gutters, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			margin-right: $margin-right;
+		}
+
+		@if unitless($margin-bottom) {
+			margin-bottom: $margin-bottom * map.get($gutters, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin-bottom: $margin-bottom * map.get($gutters, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			margin-bottom: $margin-bottom;
+		}
+
+		@if unitless($margin-left) {
+			margin-left: $margin-left * map.get($gutters, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin-left: $margin-left * map.get($gutters, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			margin-left: $margin-left;
+		}
+	}
+}
+
+@mixin wrapper-xy($max-width: $width-max, $padding: 1, $align: center) {
+	$length: list.length($padding);
+
+	max-width: $max-width;
+
+	@if $length == 1 {
+		@if unitless($padding) {
+			padding: $padding * map.get($margins, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($margins, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						padding: $padding * map.get($margins, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			padding: $padding;
+		}
+	}
+	@else {
+		$padding-top: $padding;
+		$padding-right: $padding;
+		$padding-bottom: $padding;
+		$padding-left: $padding;
+
+		@if $length == 2 {
+			$padding-top: list.nth($padding, 1);
+			$padding-right: list.nth($padding, 2);
+			$padding-bottom: list.nth($padding, 1);
+			$padding-left: list.nth($padding, 2);
+		}
+		@else if $length == 3 {
+			$padding-top: list.nth($padding, 1);
+			$padding-right: list.nth($padding, 2);
+			$padding-bottom: list.nth($padding, 3);
+			$padding-left: list.nth($padding, 2);
+		}
+		@else if $length == 4 {
+			$padding-top: list.nth($padding, 1);
+			$padding-right: list.nth($padding, 2);
+			$padding-bottom: list.nth($padding, 3);
+			$padding-left: list.nth($padding, 4);
+		}
+
+		@if unitless($padding-top) {
+			padding-top: $padding-top * map.get($margins, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($margins, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						padding-top: $padding-top * map.get($margins, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			padding-top: $padding-top;
+		}
+
+		@if unitless($padding-right) {
+			padding-right: $padding-right * map.get($margins, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($margins, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						padding-right: $padding-right * map.get($margins, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			padding-right: $padding-right;
+		}
+
+		@if unitless($padding-bottom) {
+			padding-bottom: $padding-bottom * map.get($margins, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($margins, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						padding-bottom: $padding-bottom * map.get($margins, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			padding-bottom: $padding-bottom;
+		}
+
+		@if unitless($padding-left) {
+			padding-left: $padding-left * map.get($margins, origin);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($margins, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						padding-left: $padding-left * map.get($margins, $breakpoint);
+					}
+				}
+			}
+		}
+		@else {
+			padding-left: $padding-left;
+		}
+	}
+
+	@if $align == center {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	@if $align == right {
+		margin-left: auto;
+	}
+}
+
+// on child, use `grid-column: full || wrapper || main || sidebar`
+@mixin wrapper-grid($padding: 0 1) {
+	$length: list.length($padding);
+	$padding-x: $padding;
+	$padding-y: $padding;
+
+	@if $length == 2 {
+		$padding-x: list.nth($padding, 2);
+		$padding-y: list.nth($padding, 1);
+	}
+
+	display: grid;
+	grid-auto-rows: min-content;
+	grid-template-columns: [full-start] minmax(#{map.get($margins, origin) * $padding-x}, 1fr) [wrapper-start] 0 [sidebar-start] minmax(#{map.get($gutters, origin) * $padding-x}, $width-sidebar) [sidebar-end] #{map.get($gutters, origin) * $padding-x}  [main-start] minmax(#{map.get($gutters, origin) * $padding-x}, #{$width-max - $width-sidebar - (map.get($gutters, origin) * $padding-x * 3)}) [main-end] 0 [wrapper-end] minmax(#{map.get($margins, origin) * $padding-x}, 1fr) [full-end];
+
+	@each $breakpoint in $breakpoints {
+		@if map.get($gutters, $breakpoint) {
+			@include breakpoint(#{$breakpoint}) {
+				grid-template-columns: [full-start] minmax(#{map.get($margins, $breakpoint) * $padding-x}, 1fr) [wrapper-start] 0 [sidebar-start] minmax(#{map.get($gutters, $breakpoint) * $padding-x}, $width-sidebar) [sidebar-end] #{map.get($gutters, $breakpoint) * $padding-x} [main-start] minmax(#{map.get($gutters, $breakpoint) * $padding-x}, #{$width-max - $width-sidebar - (map.get($gutters, $breakpoint) * $padding-x * 3)}) [main-end] 0 [wrapper-end] minmax(#{map.get($margins, $breakpoint) * $padding-x}, 1fr) [full-end];
+			}
+		}
+	}
+
+	@if unitless($padding-y) {
+		padding-bottom: $padding-y * map.get($gutters, origin);
+		padding-top: $padding-y * map.get($gutters, origin);
+
+		@each $breakpoint in $breakpoints {
+			@if map.get($gutters, $breakpoint) {
+				@include breakpoint(#{$breakpoint}) {
+					padding-bottom: $padding-y * map.get($gutters, $breakpoint);
+					padding-top: $padding-y * map.get($gutters, $breakpoint);
+				}
+			}
+		}
+	}
+	@else {
+		padding-bottom: $padding-y;
+		padding-top: $padding-y;
+	}
+}
+
+// add space between item based on breakpoint margin if unitless
+@mixin spacers($margin, $item: 0) {
+	$length: list.length($margin);
+	$vertical: math.div(list.nth($margin, 1), 2);
+
+	margin: -1%;
+
+	@if $length == 1 {
+		@if unitless($vertical) {
+			margin: calc(#{$vertical * map.get($gutters, origin)} * -1);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin: calc(#{$vertical * map.get($gutters, #{$breakpoint})} * -1);
+					}
+				}
+			}
+		}
+		@else {
+			margin: calc(#{$vertical} * -1);
+		}
+	}
+	@else if $length == 2 {
+		$horizontal: math.div(list.nth($margin, 2), 2);
+
+		@if unitless($horizontal) {
+			margin: calc(#{$vertical * map.get($gutters, origin)} * -1) calc(#{$horizontal * map.get($gutters, origin)} * -1);
+
+			@each $breakpoint in $breakpoints {
+				@if map.get($gutters, $breakpoint) {
+					@include breakpoint(#{$breakpoint}) {
+						margin: calc(#{$vertical * map.get($gutters, #{$breakpoint})} * -1) calc(#{$horizontal * map.get($gutters, #{$breakpoint})} * -1);
+					}
+				}
+			}
+		}
+		@else {
+			margin: calc(#{$vertical} * -1) calc(#{$horizontal} * -1);
+		}
+	}
+
+	> * {
+		margin: 1%;
+
+		@if $length == 1 {
+			@if unitless($vertical) {
+				margin: calc(#{$vertical * map.get($gutters, origin)});
+
+				@each $breakpoint in $breakpoints {
+					@if map.get($gutters, $breakpoint) {
+						@include breakpoint(#{$breakpoint}) {
+							margin: calc(#{$vertical * map.get($gutters, #{$breakpoint})});
+						}
+					}
+				}
+			}
+			@else {
+				margin: calc(#{$vertical});
+			}
+
+			@if $item == 0 {
+				width: auto;
+			}
+
+			@if $item != 0 {
+				width: #{math.div(100% - (2% * $item), $item)};
+
+				@if unitless($vertical) {
+					width: calc((100% - #{2 * $item * $vertical * map.get($gutters, origin)}) / #{$item});
+
+					@each $breakpoint in $breakpoints {
+						@if map.get($gutters, $breakpoint) {
+							@include breakpoint(#{$breakpoint}) {
+								width: calc((100% - #{2 * $item * $vertical * map.get($gutters, #{$breakpoint})}) / #{$item});
+							}
+						}
+					}
+				}
+				@else {
+					width: calc((100% - #{2 * $item * $vertical}) / #{$item});
+				}
+			}
+		}
+		@else if $length == 2 {
+			$horizontal: math.div(list.nth($margin, 2), 2);
+
+			@if unitless($horizontal) {
+				margin: calc(#{$vertical} * map.get($gutters, origin)) calc(#{$horizontal} * map.get($gutters, origin));
+
+				@each $breakpoint in $breakpoints {
+					@if map.get($gutters, $breakpoint) {
+						@include breakpoint(#{$breakpoint}) {
+							margin: calc(#{$vertical * map.get($gutters, #{$breakpoint})}) calc(#{$horizontal * map.get($gutters, #{$breakpoint})});
+						}
+					}
+				}
+			}
+			@else {
+				margin: calc(#{$vertical}) calc(#{$horizontal});
+			}
+
+			@if $item == 0 {
+				width: auto;
+			}
+
+			@if $item != 0 {
+				width: #{math.div(100% - (2% * $item), $item)};
+
+				@if unitless($horizontal) {
+					width: calc((100% - #{2 * $item * $horizontal * map.get($gutters, origin)}) / #{$item});
+
+					@each $breakpoint in $breakpoints {
+						@if map.get($gutters, $breakpoint) {
+							@include breakpoint(#{$breakpoint}) {
+								width: calc((100% - #{2 * $item * $horizontal * map.get($gutters, $breakpoint)}) / #{$item});
+							}
+						}
+					}
+				}
+				@else {
+					width: calc((100% - #{2 * $item * $horizontal}) / #{$item});
+				}
+			}
+		}
+	}
+}
+
+@mixin flex-flow($breakpoint, $width, $margin) {
+	display: flex;
+	flex-wrap: wrap;
+	margin: calc(#{$margin} * -1);
+
+	> * {
+		flex-basis: calc(calc(#{$breakpoint} - 100%) * 999);
+		flex-grow: 1;
+		margin: $margin;
+		max-width: 100%;
+		min-width: calc(#{$width} - (#{$margin} * 2));
+	}
+}
+
+@mixin clearfix {
+
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin hidden {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+@mixin visible {
+	display: block !important;
+	height: auto !important;
+	opacity: 1 !important;
+	overflow: visible !important;
+	visibility: visible !important;
+}
