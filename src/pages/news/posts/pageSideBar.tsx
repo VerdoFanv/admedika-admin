@@ -37,12 +37,6 @@ export default function PageSidebar({ isShown, close, setForm }: Props) {
 									<FormInput setForm={setForm} name="pl_seo_title.en" label="Meta title (EN)" />
 								</div>
 								<div className="row">
-									<FormInput setForm={setForm} name="pl_seo_keywords.id" label="Meta keyword (ID)" />
-								</div>
-								<div className="row">
-									<FormInput setForm={setForm} name="pl_seo_keywords.en" label="Meta keyword (EN)" />
-								</div>
-								<div className="row">
 									<FormTextarea setForm={setForm} name="pl_seo_descriptions.id" label="Meta description (ID)" />
 								</div>
 								<div className="row">
