@@ -4,6 +4,7 @@ import Dashboard from '@components/dashboard/Dashboard.component'
 import FormFile from "@components/form/FormFile.component"
 import FormInput from "@components/form/FormInput.component"
 import FormRepeater from "@components/form/FormRepeater.component"
+import FormTextarea from "@components/form/FormTextarea.component"
 import FormWysiwygColorPickerOnly from "@components/form/FormWysiwygColorPickerOnly.component"
 import Access from "@components/util/Access.component"
 import TabsNavigation from "@components/util/Tabs.component"
@@ -214,7 +215,7 @@ export default function Home() {
 										]}
 									/>
 									<div className="row">
-										<FormWysiwygColorPickerOnly setForm={setForm} name="meta.text.benefit_video" label="Video" />
+										<FormTextarea setForm={setForm} name="meta.text.benefit_video" label="Video (iframe)" />
 									</div>
 								</div>
 							</div>
