@@ -108,9 +108,9 @@ export default function Home() {
 										<FormRepeater
 											setForm={setForm}
 											name="meta.repeater.banner"
-											inputNames={[ `image`, `image_tablet`, `image_mobile`, `image_alt`, `text.id`, `text.en`, `link` ]}
-											inputTypes={[ `image`, `image`, `image`, `text`, `wysiwyg-color-picker-only`, `wysiwyg-color-picker-only`, `text` ]}
-											inputLabels={[ `Image Desktop`, `Image Tablet`, `Image Mobile`, `Image Alt`, `Text (ID)`, `Text (EN)`, `Link` ]}
+											inputNames={[ `image`, `image_tablet`, `image_mobile`, `image_alt`, `text.id`, `text.en`, `link.id`, `link.en` ]}
+											inputTypes={[ `image`, `image`, `image`, `text`, `wysiwyg-color-picker-only`, `wysiwyg-color-picker-only`, `text`, `text` ]}
+											inputLabels={[ `Image Desktop`, `Image Tablet`, `Image Mobile`, `Image Alt`, `Text (ID)`, `Text (EN)`, `Link (ID)`, `Link (EN)` ]}
 											inputWidths={[ `auto`, `auto`, `auto` ]}
 											inputShown={3}
 											inputProps={[
@@ -195,9 +195,25 @@ export default function Home() {
 											}
 										]}
 									/>
-									<div className="row">
-										<FormInput setForm={setForm} name="meta.text.about_link" label="Link" />
-									</div>
+									<TabsNavigation
+										listLabel={[ `EN`, `ID` ]}
+										content={[
+											{
+												item: (
+													<div className="row">
+														<FormInput setForm={setForm} name="meta.text.about_link.en" label="Link (EN)" />
+													</div>
+												)
+											},
+											{
+												item: (
+													<div className="row">
+														<FormInput setForm={setForm} name="meta.text.about_link.id" label="Link (ID)" />
+													</div>
+												)
+											}
+										]}
+									/>
 								</div>
 							</div>
 						</div>
