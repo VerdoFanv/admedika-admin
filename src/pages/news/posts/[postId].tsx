@@ -197,7 +197,7 @@ export default function NewsPostCategoryDetail() {
 												}
 											]}
 										/>
-										{ /* <TabsNavigation
+										<TabsNavigation
 											listLabel={[ `EN`, `ID` ]}
 											content={[
 												{
@@ -215,7 +215,7 @@ export default function NewsPostCategoryDetail() {
 													)
 												}
 											]}
-										/> */ }
+										/>
 										<TabsNavigation
 											listLabel={[ `EN`, `ID` ]}
 											content={[
