@@ -256,7 +256,6 @@ function FormRepeaterField({
 							{(!inputTypes || inputTypes[j] === `text`) && (
 								<FormInput
 									setForm={setForm}
-									register={register}
 									name={`${name}.${i}.${inputName}`}
 									placeholder={inputLabels ? inputLabels[j] : inputName}
 									index={j}
@@ -267,7 +266,6 @@ function FormRepeaterField({
 								<FormDatepicker
 									setForm={setForm}
 									type={inputTypes[j]}
-									control={control}
 									name={`${name}.${i}.${inputName}`}
 									placeholder={inputLabels ? inputLabels[j] : inputName}
 									{...inputProps[j]}
@@ -276,7 +274,6 @@ function FormRepeaterField({
 							{inputTypes && inputTypes[j] === `textarea` && (
 								<FormTextarea
 									setForm={setForm}
-									register={register}
 									name={`${name}.${i}.${inputName}`}
 									placeholder={inputLabels ? inputLabels[j] : inputName}
 									{...inputProps[j]}
@@ -285,8 +282,6 @@ function FormRepeaterField({
 							{inputTypes && inputTypes[j] === `wysiwyg` && (
 								<FormWysiwyg
 									setForm={setForm}
-									setValue={setValue}
-									getValues={getValues}
 									name={`${name}.${i}.${inputName}`}
 									{...inputProps[j]}
 								/>
@@ -294,8 +289,6 @@ function FormRepeaterField({
 							{inputTypes && inputTypes[j] === `wysiwyg-color-picker-only` && (
 								<FormWysiwygColorPickerOnly
 									setForm={setForm}
-									setValue={setValue}
-									getValues={getValues}
 									name={`${name}.${i}.${inputName}`}
 									{...inputProps[j]}
 								/>
@@ -303,7 +296,6 @@ function FormRepeaterField({
 							{inputTypes && inputTypes[j] === `checkbox` && (
 								<FormCheck
 									setForm={setForm}
-									register={register}
 									type="checkbox"
 									name={`${name}.${i}.${inputName}`}
 									label={inputLabels ? inputLabels[j] : inputName}
@@ -314,7 +306,6 @@ function FormRepeaterField({
                 (inputTypes[j] === `file` || inputTypes[j] === `image`) && (
 								<FormFile
 									setForm={setForm}
-									control={control}
 									name={`${name}.${i}.${inputName}`}
 									type={inputTypes[j]}
 									{...inputProps[j]}
@@ -323,7 +314,6 @@ function FormRepeaterField({
 							{inputTypes && inputTypes[j] === `select` && (
 								<FormSelect
 									setForm={setForm}
-									control={control}
 									name={`${name}.${i}.${inputName}`}
 									options={inputProps[j].options}
 									{...inputProps[j]}

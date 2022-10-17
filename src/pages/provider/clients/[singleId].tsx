@@ -92,7 +92,6 @@ export default function ProviderClientsSingleDetail() {
 
 	useEffect(() => {
 		if (pageData) {
-			console.log(pageData?.data)
 			reset({
 				...pageData.data,
 				page_status: pageData?.data?.page_status === 1 ? true : false

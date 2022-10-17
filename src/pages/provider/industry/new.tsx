@@ -110,7 +110,7 @@ export default function NewsPostCategoryNew() {
 										]}
 									/>
 									<div className="row">
-										<FormCheck setForm={setForm} name="post_status" type="checkbox" label="Status" />
+										<FormCheck setForm={setForm} name="pci_status" type="checkbox" label="Status" />
 									</div>
 								</div>
 							</div>
