@@ -23,7 +23,14 @@ import * as yup from "yup"
 import FormRepeater from "@components/form/FormRepeater.component"
 import AdminMissing from "@components/admin/AdminMissing.component"
 
-export default function AboutSubpage() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			subpageId: query.subpageId
+		}
+	}
+}
+export default function AboutSubpage({ subpageId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -35,7 +42,6 @@ export default function AboutSubpage() {
 		})
 	})
 	const router = useRouter()
-	const { subpageId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

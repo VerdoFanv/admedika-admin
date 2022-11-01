@@ -18,7 +18,15 @@ import EiPopup from "@components/ei/EiPopup.component"
 import useLoading from "@hooks/useLoading.hook"
 import FormCheck from "@components/form/FormCheck.component"
 
-export default function NewsPostCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			industryId: query.industryId
+		}
+	}
+}
+
+export default function NewsPostCategoryDetail({ industryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pcil_name: yup.object({
@@ -30,7 +38,6 @@ export default function NewsPostCategoryDetail() {
 		})
 	})
 	const router = useRouter()
-	const { industryId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

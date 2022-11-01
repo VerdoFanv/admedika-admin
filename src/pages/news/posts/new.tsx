@@ -187,7 +187,7 @@ export default function NewsPostCategoryNew() {
 										<FormSelect setForm={setForm} name="post_category_name" options={postCategory?.data?.map((item) => ({ value: String(item.post_cat_name), label: item.post_cat_name }))} label="Post category" error={errors?.post_category_name} />
 									</div>
 									<div className="row">
-										<FormDatepicker setForm={setForm} name="post_publish_at" valueType="string" dateFormat="yyyy-MM-dd HH:mm" />
+										<FormDatepicker setForm={setForm} name="post_publish_at" valueType="string" dateFormat="yyyy-MM-dd HH:mm" label="Published At" />
 									</div>
 									{ /* <div className="row">
 											<FormSelect setForm={setForm} name="post_tags" options={[]} label="Tags" isMulti />

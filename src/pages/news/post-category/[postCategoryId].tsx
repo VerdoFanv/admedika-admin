@@ -21,7 +21,15 @@ import PageSidebar from "./pageSideBar"
 import FormSelect from "@components/form/FormSelect.component"
 import useLoading from "@hooks/useLoading.hook"
 
-export default function NewsPostCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			postCategoryId: query.postCategoryId
+		}
+	}
+}
+
+export default function NewsPostCategoryDetail({ postCategoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pcl_name: yup.object({
@@ -33,7 +41,6 @@ export default function NewsPostCategoryDetail() {
 		})
 	})
 	const router = useRouter()
-	const { postCategoryId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

@@ -21,7 +21,15 @@ import AdminMissing from "@components/admin/AdminMissing.component"
 import AdminPageSidebar from "@components/admin/AdminPageSidebar.component"
 import EiPopup from "@components/ei/EiPopup.component"
 
-export default function NewsFaqCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function NewsFaqCategoryDetail({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -34,7 +42,6 @@ export default function NewsFaqCategoryDetail() {
 	})
 	const { breadcrumb } = useCurrentPath()
 	const router = useRouter()
-	const { categoryId } = router.query
 	const { dispatch } = useContext(DashboardContext)
 
 	const setForm = useForm({

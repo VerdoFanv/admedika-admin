@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useCurrentPath from "@hooks/useCurrentPath.hook"
 import useGetData from "@hooks/useGetData.hook"
 import { postData } from "@utils/fetcher"
+import { pageId } from "@variables/pageId.variable"
 import Link from "next/link"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
@@ -57,7 +58,6 @@ export default function TermsNew() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: pageId } = useGetData(`/page/list-page-id`)
 
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
@@ -66,7 +66,7 @@ export default function TermsNew() {
 			await postData(`/page/create`, {
 				...data,
 				page_type: `general`,
-				page_parent_id: pageId?.data?.page_id[`terms`],
+				page_parent_id: pageId[`terms`],
 				page_status: data.page_status === true ? 1 : 2,
 			})
 			reset()

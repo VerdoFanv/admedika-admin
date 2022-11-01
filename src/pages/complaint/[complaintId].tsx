@@ -7,14 +7,22 @@ import { DashboardContext } from "@contexts/DashboardContext.context"
 import useCurrentPath from "@hooks/useCurrentPath.hook"
 import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
+import { formatDate } from "@utils/date"
 import { deleteData } from "@utils/fetcher"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
-export default function ComplaintDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			complaintId: query.complaintId
+		}
+	}
+}
+
+export default function ComplaintDetail({ complaintId }) {
 	const router = useRouter()
-	const { complaintId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
@@ -111,6 +119,10 @@ export default function ComplaintDetail() {
 										<div className="row">
 											<p className="label">Message</p>
 											<p className="value value-area">{pageData?.data?.complaint_message}</p>
+										</div>
+										<div className="row">
+											<p className="label">Submit At</p>
+											<p className="value">{formatDate(pageData?.data?.complaint_created_at, `DD/MM/YYYY HH:mm`)}</p>
 										</div>
 									</div>
 								</div>

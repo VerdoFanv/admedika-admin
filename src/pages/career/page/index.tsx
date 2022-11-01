@@ -20,6 +20,7 @@ import FormWysiwyg from "@components/form/FormWysiwyg.component"
 import FormInput from "@components/form/FormInput.component"
 import FormFile from "@components/form/FormFile.component"
 import IconSidebar from "public/assets/icons/icon-sidebar.svg"
+import { pageId } from "@variables/pageId.variable"
 
 export default function CareerPage() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -39,15 +40,14 @@ export default function CareerPage() {
 	})
 	const { reset, handleSubmit } = setForm
 	const [ showSidebar, setShowSidebar ] = useState(false)
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`career`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`career`]}`)
 	useLoading(pageIsLoading)
 
 	const onSubmit = async (data: any) => {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`career`]}/update`, {
+			await postData(`/page/${pageId[`career`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 				page_type: pageData.data.page_type,

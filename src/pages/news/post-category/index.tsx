@@ -15,6 +15,7 @@ import FormCheck from "@components/form/FormCheck.component"
 import { postData } from "@utils/fetcher"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { pageId } from "@variables/pageId.variable"
 
 export default function PostCategory() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -43,9 +44,7 @@ export default function PostCategory() {
 		{ label: `Sort by Newest`, value: `desc` },
 		{ label: `Sort by Oldest`, value: `asc` }
 	]
-	const { data: newsData } = useGetData(`/page/7`)
-	const pageId = newsData?.data?.page_sub.find((page) => page.page_type === `news-category`).page_id
-	const { data: pageData, isLoading } = useGetData(`/page/${pageId}`)
+	const { data: pageData, isLoading } = useGetData(`/page/${pageId[`news-category`]}`)
 
 	useEffect(() => {
 		dispatch({ type: `set_pageMemory`, payload: { newsPostCategory: { index: pageIndex, orderBy: selectedSort } } })
@@ -67,7 +66,7 @@ export default function PostCategory() {
 	const submit = async (data) => {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${pageId}/update`, {
+			await postData(`/page/${pageId[`news-category`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 				page_parent_id: pageData.data.page_parent_id,

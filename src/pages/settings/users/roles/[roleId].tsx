@@ -37,13 +37,20 @@ const initialState = {
 const schema = yup.object({
 	role_name: yup.string().required(`Role name is required`)
 })
-export default function SettingRoleEdit() {
+
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			roleId: query.roleId
+		}
+	}
+}
+export default function SettingRoleEdit({ roleId }) {
 	const { state: dashboardState, dispatch: dashboardDispatch } = useContext(DashboardContext)
 	const [ state, dispatch ] = useImmerReducer(reducer, initialState)
 	const { data: currentUser } = useGetData(`/current-user`)
 
 	const router = useRouter()
-	const { roleId } = router.query
 
 	const { data: roleData, isLoading: roleIsLoading } = useGetData(`/role/${roleId}`)
 
@@ -216,17 +223,13 @@ export default function SettingRoleEdit() {
 											<tr>
 												<th colSpan={4}>Admedika</th>
 											</tr>
-											{dashboardState.authObjects.page?.map((nav) => {
-												if (!nav.key.includes(`myadmedika`) && !nav.key.includes(`mymerchant`) && !nav.key.includes(`general`)) {
-													return (
-														<tr key={nav.key} className={nav.key}>
-															<td>{nav.label}</td>
-															<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.read" value={nav.key} styleCenter /></td>
-															<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.write" value={nav.key} styleCenter /></td>
-														</tr>
-													)
-												}
-											}
+											{dashboardState.authObjects.page?.map((nav) => !nav.key.includes(`myadmedika`) && !nav.key.includes(`mymerchant`) && !nav.key.includes(`general`) && (
+												<tr key={nav.key} className={nav.key}>
+													<td>{nav.label}</td>
+													<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.read" value={nav.key} styleCenter /></td>
+													<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.write" value={nav.key} styleCenter /></td>
+												</tr>
+											)
 											)}
 											<tr>
 												<th colSpan={4}>MyAdmedika</th>
@@ -251,13 +254,6 @@ export default function SettingRoleEdit() {
 											<tr>
 												<th colSpan={4}>General</th>
 											</tr>
-											{dashboardState.authObjects.page?.map((nav) => nav.key.includes(`general`) && (
-												<tr key={nav.key} className={nav.key}>
-													<td>{nav.label}</td>
-													<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.read" value={nav.key} styleCenter /></td>
-													<td><FormCheck setForm={setForm} type="checkbox" name="role_ability.write" value={nav.key} styleCenter /></td>
-												</tr>
-											))}
 											{dashboardState.authObjects.page?.map((nav) => nav.key.includes(`general`) && (
 												<tr key={nav.key} className={nav.key}>
 													<td>{nav.label}</td>

@@ -14,6 +14,7 @@ import FormInput from "@components/form/FormInput.component"
 import TabsNavigation from "@components/util/Tabs.component"
 import FormCheck from "@components/form/FormCheck.component"
 import FormRepeater from "@components/form/FormRepeater.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function ProviderClientsSingleNew() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -46,15 +47,13 @@ export default function ProviderClientsSingleNew() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: mainPage } = useGetData(`/page/list-page-id`)
-	const pageId = mainPage?.data?.page_id[`myadmedika-faq`]
 
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
 			await postData(`/page/create`, {
 				...data,
-				page_parent_id: pageId,
+				page_parent_id: pageId[`myadmedika-faq`],
 				page_type: `faq-category`,
 				page_status: data.page_status === true ? 1 : 2,
 				page_domain: `myadmedika`

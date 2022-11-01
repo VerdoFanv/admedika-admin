@@ -15,6 +15,7 @@ import TabsNavigation from "@components/util/Tabs.component"
 import * as yup from "yup"
 import FormWysiwygColorPickerOnly from "@components/form/FormWysiwygColorPickerOnly.component"
 import FormCheck from "@components/form/FormCheck.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function NewsDownloadCategoryNew() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -55,7 +56,7 @@ export default function NewsDownloadCategoryNew() {
 		try {
 			await postData(`/page/create`, {
 				...data,
-				page_parent_id: 34,
+				page_parent_id: pageId[`news-download-corner`],
 				page_type: `download-corner-category`,
 				page_status: data.page_status === true ? 1 : 2,
 			})

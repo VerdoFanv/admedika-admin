@@ -64,12 +64,19 @@ const schema = yup.object({
 	user_password_confirmation: yup.string().oneOf([ yup.ref(`user_password`), null ], `Password must match`)
 })
 
-export default function SettingUserEdit() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			userId: query.userId
+		}
+	}
+}
+
+export default function SettingUserEdit({ userId }) {
 	const { state: dashboardState, dispatch: dashboardDispatch } = useContext(DashboardContext)
 	const [ state, dispatch ] = useImmerReducer(reducer, initialState)
 
 	const router = useRouter()
-	const { userId } = router.query
 
 	const setForm = useForm({
 		resolver: yupResolver(schema)

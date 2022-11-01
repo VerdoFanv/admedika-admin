@@ -21,7 +21,17 @@ import * as yup from "yup"
 import FormRepeater from "@components/form/FormRepeater.component"
 import AdminMissing from "@components/admin/AdminMissing.component"
 
-export default function ServiceSubpage() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			subpageId: query.subPageId,
+			categoryId: query.categoryId,
+			subimageId: query.subImageId
+		}
+	}
+}
+
+export default function ServiceSubpage({ subpageId, categoryId, subimageId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -33,7 +43,6 @@ export default function ServiceSubpage() {
 		})
 	})
 	const router = useRouter()
-	const { subPageId, categoryId, subImageId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
@@ -44,8 +53,8 @@ export default function ServiceSubpage() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${subImageId}`)
-	const { data: pageParentData } = useGetData(`/page/${subPageId}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${subimageId}`)
+	const { data: pageParentData } = useGetData(`/page/${subpageId}`)
 	const { data: pageCategorySingleParent } = useGetData(`/page/${categoryId}`)
 	useLoading(pageIsLoading)
 
@@ -53,7 +62,7 @@ export default function ServiceSubpage() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await deleteData(`/page/${subImageId}/delete`)
+			await deleteData(`/page/${subimageId}/delete`)
 			setDeletePopup(false)
 			dispatch({ type: `show_notification`, payload: {
 				type: `info`,
@@ -74,7 +83,7 @@ export default function ServiceSubpage() {
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${subImageId}/update`, {
+			await postData(`/page/${subimageId}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})

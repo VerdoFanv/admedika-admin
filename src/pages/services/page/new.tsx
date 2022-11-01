@@ -17,6 +17,7 @@ import TabsNavigation from "@components/util/Tabs.component"
 import * as yup from "yup"
 import FormCheck from "@components/form/FormCheck.component"
 import FormTextarea from "@components/form/FormTextarea.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function ServiceCategoryNew() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -29,7 +30,6 @@ export default function ServiceCategoryNew() {
 			en: yup.string().required(`Title (EN) is required`)
 		})
 	})
-	const { data: pageId } = useGetData(`/page/list-page-id`)
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
@@ -95,7 +95,7 @@ export default function ServiceCategoryNew() {
 			await postData(`/page/create`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
-				page_parent_id: pageId?.data?.page_id[`service`],
+				page_parent_id: pageId[`service`],
 				page_type: `service-category`
 			})
 			dispatch({ type: `show_notification`, payload: {

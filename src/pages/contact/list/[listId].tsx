@@ -13,9 +13,16 @@ import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 import { useSWRConfig } from "swr"
 
-export default function ContactListId() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			listId: query.listId
+		}
+	}
+}
+
+export default function ContactListId({ listId }) {
 	const router = useRouter()
-	const { listId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

@@ -12,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
 import { postData } from "@utils/fetcher"
+import { pageId } from "@variables/pageId.variable"
 import IconSidebar from "public/assets/icons/icon-sidebar.svg"
 import { useContext, useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
@@ -32,8 +33,7 @@ export default function ContactPage() {
 	const [ showSidebar, setShowSidebar ] = useState(false)
 	const [ loading, setLoading ] = useState(true)
 
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`contact`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`contact`]}`)
 	const setForm = useForm({
 		resolver: yupResolver(schema)
 	})
@@ -44,7 +44,7 @@ export default function ContactPage() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`contact`]}/update`, {
+			await postData(`/page/${pageId[`contact`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})

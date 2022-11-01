@@ -15,6 +15,7 @@ import TabsNavigation from "@components/util/Tabs.component"
 import FormFile from "@components/form/FormFile.component"
 import FormCheck from "@components/form/FormCheck.component"
 import FormSelect from "@components/form/FormSelect.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function ProviderClientsSingleNew() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -51,8 +52,6 @@ export default function ProviderClientsSingleNew() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: mainPage } = useGetData(`/page/6`)
-	const pageId = mainPage?.data?.page_sub.find((page) => page.page_type === `provider-client`).page_id
 	const { data: industryDatas } = useGetData(`/list/client-industry`)
 
 	async function onSubmit(data) {
@@ -60,7 +59,7 @@ export default function ProviderClientsSingleNew() {
 		try {
 			await postData(`/page/create`, {
 				...data,
-				page_parent_id: pageId,
+				page_parent_id: pageId[`provider-client`],
 				page_type: `provider-client-single`,
 				page_status: data.page_status === true ? 1 : 2,
 			})

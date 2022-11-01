@@ -15,6 +15,7 @@ import FormInput from "@components/form/FormInput.component"
 import TabsNavigation from "@components/util/Tabs.component"
 import FormFile from "@components/form/FormFile.component"
 import FormWysiwyg from "@components/form/FormWysiwyg.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function ProviderBecome() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -35,16 +36,13 @@ export default function ProviderBecome() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const [ loading, setLoading ] = useState(false)
-	const { data: mainPage, isLoading: pageIsLoading } = useGetData(`/page/6`)
-	const pageId = mainPage?.data?.page_sub.find((page) => page.page_type === `provider-join`).page_id
-	const { data: pageData, isLoading } = useGetData(`/page/${pageId}`)
-	useLoading(loading)
+	const { data: pageData, isLoading } = useGetData(`/page/${pageId[`provider-join`]}`)
+	useLoading(isLoading)
 
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${pageId}/update`, {
+			await postData(`/page/${pageId[`provider-join`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})
@@ -61,14 +59,6 @@ export default function ProviderBecome() {
 
 		dispatch({ type: `set_isLoading`, payload: false })
 	}
-
-	useEffect(() => {
-		if (isLoading || pageIsLoading) {
-			setLoading(true)
-		} else {
-			setLoading(false)
-		}
-	}, [ isLoading, pageIsLoading ])
 
 	useEffect(() => {
 		if (pageData) {

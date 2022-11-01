@@ -13,10 +13,17 @@ import { DashboardContext } from "@contexts/DashboardContext.context"
 import FormInput from "@components/form/FormInput.component"
 import TabsNavigation from "@components/util/Tabs.component"
 import FormRepeater from "@components/form/FormRepeater.component"
-import { useRouter } from "next/router"
 import useLoading from "@hooks/useLoading.hook"
 
-export default function ProviderClientsSingleNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function ProviderClientsSingleNew({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -27,10 +34,8 @@ export default function ProviderClientsSingleNew() {
 			en: yup.string().required(`Title (EN) is required`)
 		})
 	})
-	const router = useRouter()
 	const { breadcrumb } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
-	const { categoryId } = router.query
 
 	const setForm = useForm({
 		resolver: yupResolver(schema)

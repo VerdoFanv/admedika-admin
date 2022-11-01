@@ -10,7 +10,6 @@ import useCurrentPath from "@hooks/useCurrentPath.hook"
 import useGetData from "@hooks/useGetData.hook"
 import { postData } from "@utils/fetcher"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import TabsNavigation from "@components/util/Tabs.component"
@@ -18,7 +17,15 @@ import * as yup from "yup"
 import FormCheck from "@components/form/FormCheck.component"
 import FormTextarea from "@components/form/FormTextarea.component"
 
-export default function ServiceSubpageNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function ServiceSubpageNew({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -29,8 +36,6 @@ export default function ServiceSubpageNew() {
 			en: yup.string().required(`Title (EN) is required`)
 		})
 	})
-	const router = useRouter()
-	const { categoryId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

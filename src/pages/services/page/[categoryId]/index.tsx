@@ -25,7 +25,15 @@ import AdminSubpage from "@components/admin/AdminSubpage.component"
 import FormTextarea from "@components/form/FormTextarea.component"
 import AdminMissing from "@components/admin/AdminMissing.component"
 
-export default function ServiceCategory() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function ServiceCategory({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -37,7 +45,6 @@ export default function ServiceCategory() {
 		})
 	})
 	const router = useRouter()
-	const { categoryId } = router.query
 	const { breadcrumb, currentPath } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

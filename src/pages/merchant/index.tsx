@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form"
 import { DashboardContext } from "@contexts/DashboardContext.context"
 import AdminPageSidebar from "@components/admin/AdminPageSidebar.component"
 import Subpage from "./SubPage.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function MerchantCategory() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -35,16 +36,13 @@ export default function MerchantCategory() {
 	})
 
 	const { reset, handleSubmit } = setForm
-	const [ loading, setLoading ] = useState(false)
-	const { data: mainPage, isLoading: pageIsLoading } = useGetData(`/page/list-page-id`)
-	const pageId = mainPage?.data?.page_id[`mymerchant-home`]
-	const { data: pageData, isLoading } = useGetData(`/page/${pageId}`)
-	useLoading(loading)
+	const { data: pageData, isLoading } = useGetData(`/page/${pageId[`mymerchant-home`]}`)
+	useLoading(isLoading)
 
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${pageId}/update`, {
+			await postData(`/page/${pageId[`mymerchant-home`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})
@@ -61,14 +59,6 @@ export default function MerchantCategory() {
 
 		dispatch({ type: `set_isLoading`, payload: false })
 	}
-
-	useEffect(() => {
-		if (isLoading || pageIsLoading) {
-			setLoading(true)
-		} else {
-			setLoading(false)
-		}
-	}, [ isLoading, pageIsLoading ])
 
 	useEffect(() => {
 		if (pageData) {

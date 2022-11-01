@@ -12,9 +12,16 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useState } from "react"
 
-export default function CareerListDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			listId: query.listId
+		}
+	}
+}
+
+export default function CareerListDetail({ listId }) {
 	const router = useRouter()
-	const { listId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

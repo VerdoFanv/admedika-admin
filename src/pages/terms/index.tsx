@@ -12,6 +12,7 @@ import { postData } from "@utils/fetcher"
 import { useContext, useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
 import useCurrentPath from "@hooks/useCurrentPath.hook"
+import { pageId } from "@variables/pageId.variable"
 
 export default function Terms() {
 	const { dispatch } = useContext(DashboardContext)
@@ -19,15 +20,14 @@ export default function Terms() {
 	const setForm = useForm()
 	const { reset, handleSubmit } = setForm
 	const [ showSidebar, setShowSidebar ] = useState(false)
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`terms`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`terms`]}`)
 	useLoading(pageIsLoading)
 
 	const onSubmit = async (data: any) => {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`terms`]}/update`, {
+			await postData(`/page/${pageId[`terms`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 				page_type: pageData.data.page_type,

@@ -7,7 +7,6 @@ import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
 import { postData } from "@utils/fetcher"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import AdminMissing from "@components/admin/AdminMissing.component"
@@ -17,7 +16,15 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import TabsNavigation from "@components/util/Tabs.component"
 
-export default function MenuDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			menuId: query.menuId
+		}
+	}
+}
+
+export default function MenuDetail({ menuId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		ma_name: yup.object({
@@ -28,8 +35,6 @@ export default function MenuDetail() {
 			en: yup.string().required(`Name (EN) is required`)
 		})
 	})
-	const router = useRouter()
-	const { menuId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

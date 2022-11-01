@@ -15,10 +15,17 @@ import TabsNavigation from "@components/util/Tabs.component"
 import * as yup from "yup"
 import FormWysiwygColorPickerOnly from "@components/form/FormWysiwygColorPickerOnly.component"
 import FormCheck from "@components/form/FormCheck.component"
-import { useRouter } from "next/router"
 import useLoading from "@hooks/useLoading.hook"
 
-export default function NewsDownloadSingleNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function NewsDownloadSingleNew({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -30,8 +37,6 @@ export default function NewsDownloadSingleNew() {
 		})
 	})
 	const { breadcrumb } = useCurrentPath()
-	const router = useRouter()
-	const { categoryId } = router.query
 
 	const { data: pageData, isLoading } = useGetData(`/page/${categoryId}`)
 	const { dispatch } = useContext(DashboardContext)

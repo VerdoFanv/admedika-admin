@@ -20,7 +20,16 @@ import useLoading from "@hooks/useLoading.hook"
 import AdminPageSidebar from "@components/admin/AdminPageSidebar.component"
 import EiPopup from "@components/ei/EiPopup.component"
 
-export default function MerchantSingleDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId,
+			singleId: query.singleId
+		}
+	}
+}
+
+export default function MerchantSingleDetail({ categoryId, singleId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -32,7 +41,6 @@ export default function MerchantSingleDetail() {
 		})
 	})
 	const router = useRouter()
-	const { categoryId, singleId } = router.query
 	const { breadcrumb } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
 	const [ showSidebar, setShowSidebar ] = useState(false)

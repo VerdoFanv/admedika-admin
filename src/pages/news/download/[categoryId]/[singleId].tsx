@@ -20,7 +20,16 @@ import useLoading from "@hooks/useLoading.hook"
 import AdminMissing from "@components/admin/AdminMissing.component"
 import EiPopup from "@components/ei/EiPopup.component"
 
-export default function NewsDownloadSingleNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId,
+			singleId: query.singleId
+		}
+	}
+}
+
+export default function NewsDownloadSingleNew({ categoryId, singleId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -33,7 +42,6 @@ export default function NewsDownloadSingleNew() {
 	})
 	const { breadcrumb } = useCurrentPath()
 	const router = useRouter()
-	const { categoryId, singleId } = router.query
 
 	const { data: pageParentData } = useGetData(`/page/${categoryId}`)
 	const { data: pageData, isLoading } = useGetData(`/page/${singleId}`)

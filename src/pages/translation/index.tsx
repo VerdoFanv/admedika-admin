@@ -68,7 +68,7 @@ export default function TextHardCode() {
 									<Link
 										key={list[`id`]}
 										href={{
-											pathname: `${currentPath}/${list[`id`]}&page=${pageIndex}`
+											pathname: `${currentPath}/${list[`id`]}`
 										}}
 										passHref
 									>

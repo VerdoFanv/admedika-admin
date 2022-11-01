@@ -22,7 +22,15 @@ import * as yup from "yup"
 import FormWysiwyg from "@components/form/FormWysiwyg.component"
 import AdminMissing from "@components/admin/AdminMissing.component"
 
-export default function TermsDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			subpageId: query.subpageId
+		}
+	}
+}
+
+export default function TermsDetail({ subpageId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -34,7 +42,6 @@ export default function TermsDetail() {
 		})
 	})
 	const router = useRouter()
-	const { subpageId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

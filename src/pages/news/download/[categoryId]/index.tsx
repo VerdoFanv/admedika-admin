@@ -23,7 +23,15 @@ import AdminPageSidebar from "@components/admin/AdminPageSidebar.component"
 import FormWysiwygColorPickerOnly from "@components/form/FormWysiwygColorPickerOnly.component"
 import Subpage from "../SubPage.component"
 
-export default function NewsDownloadCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function NewsDownloadCategoryDetail({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -35,7 +43,6 @@ export default function NewsDownloadCategoryDetail() {
 		})
 	})
 	const router = useRouter()
-	const { categoryId } = router.query
 	const { breadcrumb, currentPath } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)

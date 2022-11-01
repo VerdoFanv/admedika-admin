@@ -21,7 +21,15 @@ import AdminPageSidebar from "@components/admin/AdminPageSidebar.component"
 import EiPopup from "@components/ei/EiPopup.component"
 import FormSelect from "@components/form/FormSelect.component"
 
-export default function ProviderClientsSingleDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			singleId: query.singleId
+		}
+	}
+}
+
+export default function ProviderClientsSingleDetail({ singleId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -34,7 +42,6 @@ export default function ProviderClientsSingleDetail() {
 	})
 	const { breadcrumb } = useCurrentPath()
 	const router = useRouter()
-	const { singleId } = router.query
 	const { dispatch } = useContext(DashboardContext)
 
 	const setForm = useForm({

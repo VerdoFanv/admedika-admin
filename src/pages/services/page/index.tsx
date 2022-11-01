@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import AdminSubpage from "@components/admin/AdminSubpage.component"
 import useCurrentPath from "@hooks/useCurrentPath.hook"
+import { pageId } from "@variables/pageId.variable"
 
 export default function ServicesPage() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -35,8 +36,7 @@ export default function ServicesPage() {
 	const { currentPath } = useCurrentPath()
 	const [ loading, setLoading ] = useState(true)
 
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`service`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`service`]}`)
 	const setForm = useForm<any>({
 		resolver: yupResolver(schema)
 	})
@@ -47,7 +47,7 @@ export default function ServicesPage() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`service`]}/update`, {
+			await postData(`/page/${pageId[`service`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})

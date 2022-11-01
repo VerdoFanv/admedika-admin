@@ -24,7 +24,16 @@ import AdminSubpage from "@components/admin/AdminSubpage.component"
 import FormTextarea from "@components/form/FormTextarea.component"
 import AdminMissing from "@components/admin/AdminMissing.component"
 
-export default function ServiceSubpage() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			subpageId: query.subPageId,
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function ServiceSubpage({ categoryId, subpageId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -36,7 +45,6 @@ export default function ServiceSubpage() {
 		})
 	})
 	const router = useRouter()
-	const { subPageId, categoryId } = router.query
 	const { breadcrumb, currentPath } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
@@ -47,7 +55,7 @@ export default function ServiceSubpage() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${subPageId}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${subpageId}`)
 	const { data: pageParentData } = useGetData(`/page/${categoryId}`)
 	useLoading(pageIsLoading)
 
@@ -55,7 +63,7 @@ export default function ServiceSubpage() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await deleteData(`/page/${subPageId}/delete`)
+			await deleteData(`/page/${subpageId}/delete`)
 			setDeletePopup(false)
 			dispatch({ type: `show_notification`, payload: {
 				type: `info`,
@@ -76,7 +84,7 @@ export default function ServiceSubpage() {
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${subPageId}/update`, {
+			await postData(`/page/${subpageId}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})

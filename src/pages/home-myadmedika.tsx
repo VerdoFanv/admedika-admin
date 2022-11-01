@@ -12,6 +12,7 @@ import { DashboardContext } from "@contexts/DashboardContext.context"
 import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
 import { postData } from "@utils/fetcher"
+import { pageId } from "@variables/pageId.variable"
 import IconSidebar from 'public/assets/icons/icon-sidebar.svg'
 import { useContext, useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
@@ -21,8 +22,7 @@ export default function Home() {
 	const [ showSidebar, setShowSidebar ] = useState(false)
 	const setForm = useForm()
 	const { reset, handleSubmit } = setForm
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`myadmedika-home`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`myadmedika-home`]}`)
 
 	useLoading(pageIsLoading)
 
@@ -30,7 +30,7 @@ export default function Home() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`myadmedika-home`]}/update`, {
+			await postData(`/page/${pageId[`myadmedika-home`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})

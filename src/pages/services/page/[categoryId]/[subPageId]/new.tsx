@@ -9,7 +9,6 @@ import useCurrentPath from "@hooks/useCurrentPath.hook"
 import useGetData from "@hooks/useGetData.hook"
 import { postData } from "@utils/fetcher"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import TabsNavigation from "@components/util/Tabs.component"
@@ -17,7 +16,14 @@ import * as yup from "yup"
 import FormCheck from "@components/form/FormCheck.component"
 import FormRepeater from "@components/form/FormRepeater.component"
 
-export default function ServiceSubpageImageGalleryNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			subpageId: query.subPageId,
+		}
+	}
+}
+export default function ServiceSubpageImageGalleryNew({ subpageId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -28,12 +34,10 @@ export default function ServiceSubpageImageGalleryNew() {
 			en: yup.string().required(`Title (EN) is required`)
 		})
 	})
-	const router = useRouter()
-	const { subPageId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
-	const { data: pageData } = useGetData(`/page/${subPageId}`)
+	const { data: pageData } = useGetData(`/page/${subpageId}`)
 	const { data: pageParentData } = useGetData(`/page/${pageData?.data?.page_parent_id}`)
 
 	const setForm = useForm<any>({
@@ -59,7 +63,7 @@ export default function ServiceSubpageImageGalleryNew() {
 		try {
 			await postData(`/page/create`, {
 				...data,
-				page_parent_id: subPageId,
+				page_parent_id: subpageId,
 				page_type: `service-gallery`,
 				page_status: data.page_status === true ? 1 : 2,
 			})

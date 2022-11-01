@@ -24,7 +24,15 @@ import FormSelect from "@components/form/FormSelect.component"
 import { formatDate } from "@utils/date"
 import FormDatepicker from "@components/form/FormDatepicker.component"
 
-export default function NewsPostCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			postId: query.postId
+		}
+	}
+}
+
+export default function NewsPostCategoryDetail({ postId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -38,7 +46,6 @@ export default function NewsPostCategoryDetail() {
 		post_category_name: yup.string().required(`Category is required`)
 	})
 	const router = useRouter()
-	const { postId } = router.query
 	const { breadcrumb } = useCurrentPath()
 
 	const { dispatch } = useContext(DashboardContext)
@@ -239,7 +246,7 @@ export default function NewsPostCategoryDetail() {
 											<FormSelect setForm={setForm} name="post_category_name" options={postCategory?.data?.map((item) => ({ value: String(item.post_cat_name), label: item.post_cat_name }))} label="Post category" error={errors?.post_category_name} />
 										</div>
 										<div className="row">
-											<FormDatepicker setForm={setForm} name="post_publish_at" valueType="string" dateFormat="yyyy-MM-dd HH:mm" />
+											<FormDatepicker setForm={setForm} name="post_publish_at" valueType="string" dateFormat="yyyy-MM-dd HH:mm" label="Published At" />
 										</div>
 										{ /* <div className="row">
 											<FormSelect setForm={setForm} name="post_tags" options={[]} label="Tags" isMulti />

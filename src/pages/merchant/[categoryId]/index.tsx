@@ -19,7 +19,15 @@ import Subpage from "../SubPage.component"
 import FormCheck from "@components/form/FormCheck.component"
 import EiPopup from "@components/ei/EiPopup.component"
 
-export default function MerchantCategoryDetail() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function MerchantCategoryDetail({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -34,7 +42,6 @@ export default function MerchantCategoryDetail() {
 	const [ deletePopup, setDeletePopup ] = useState(false)
 	const { breadcrumb, currentPath } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
-	const { categoryId } = router.query
 
 	const setForm = useForm({
 		resolver: yupResolver(schema)

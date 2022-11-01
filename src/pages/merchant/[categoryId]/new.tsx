@@ -13,11 +13,18 @@ import { DashboardContext } from "@contexts/DashboardContext.context"
 import FormInput from "@components/form/FormInput.component"
 import TabsNavigation from "@components/util/Tabs.component"
 import FormCheck from "@components/form/FormCheck.component"
-import { useRouter } from "next/router"
 import FormFile from "@components/form/FormFile.component"
 import FormWysiwyg from "@components/form/FormWysiwyg.component"
 
-export default function MerchantSingleNew() {
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			categoryId: query.categoryId
+		}
+	}
+}
+
+export default function MerchantSingleNew({ categoryId }) {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
 	const schema = settingGeneralData?.data?.text?.language === `id` ? yup.object({
 		pl_title: yup.object({
@@ -28,8 +35,6 @@ export default function MerchantSingleNew() {
 			en: yup.string().required(`Title (EN) is required`)
 		})
 	})
-	const router = useRouter()
-	const { categoryId } = router.query
 	const { breadcrumb } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
 	const { data: pageData } = useGetData(`/page/${categoryId}`)

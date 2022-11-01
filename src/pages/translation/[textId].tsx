@@ -10,14 +10,18 @@ import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
 import { postData } from "@utils/fetcher"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 
-export default function TextHardcodeId() {
-	const router = useRouter()
-	const queryParam = router.query
-	const [ textId, pageIndex ] = String(queryParam.textId).split(`&`)
+export function getServerSideProps({ query }) {
+	return {
+		props: {
+			textId: query.textId
+		}
+	}
+}
+
+export default function TextHardcodeId({ textId }) {
 	const { breadcrumb } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
 	const setForm = useForm()
@@ -51,14 +55,9 @@ export default function TextHardcodeId() {
 	}
 
 	useEffect(() => {
-		if (typeof window !== `undefined`) {
-			sessionStorage.setItem(`pageIndex`, String(pageIndex).split(`=`)[1])
-		}
-
-		if (!pageData) return
-
+		if (!pageData?.data) return
 		reset(pageData.data)
-	}, [ reset, pageData, pageIndex ])
+	}, [ reset, pageData ])
 
 	if (!pageData) return <></>
 

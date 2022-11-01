@@ -16,6 +16,7 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { postData } from "@utils/fetcher"
 import { DashboardContext } from "@contexts/DashboardContext.context"
+import { pageId } from "@variables/pageId.variable"
 
 export default function Download() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -30,9 +31,7 @@ export default function Download() {
 	})
 	const { currentPath } = useCurrentPath()
 	const { dispatch } = useContext(DashboardContext)
-	const { data: newsData } = useGetData(`/page/7`)
-	const pageId = newsData?.data?.page_sub.find((page) => page.page_type === `download-corner`).page_id
-	const { data: pageData, isLoading } = useGetData(`/page/${pageId}`)
+	const { data: pageData, isLoading } = useGetData(`/page/${pageId[`news-download-corner`]}`)
 	const setForm = useForm({
 		resolver: yupResolver(schema)
 	})
@@ -42,7 +41,7 @@ export default function Download() {
 	const submit = async (data) => {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
-			await postData(`/page/${pageId}/update`, {
+			await postData(`/page/${pageId[`news-download-corner`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 				page_parent_id: pageData.data.page_parent_id,

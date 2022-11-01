@@ -4,7 +4,6 @@ import Access from "@components/util/Access.component"
 import useCurrentPath from "@hooks/useCurrentPath.hook"
 import Link from "next/link"
 import useGetData from "@hooks/useGetData.hook"
-import useLoading from "@hooks/useLoading.hook"
 import * as yup from "yup"
 import { useContext } from "react"
 import { postData } from "@utils/fetcher"
@@ -16,6 +15,7 @@ import TabsNavigation from "@components/util/Tabs.component"
 import FormFile from "@components/form/FormFile.component"
 import FormRepeater from "@components/form/FormRepeater.component"
 import FormCheck from "@components/form/FormCheck.component"
+import { pageId } from "@variables/pageId.variable"
 
 export default function NewsFaqCategoryNew() {
 	const { data: settingGeneralData } = useGetData(`/setting-general`)
@@ -51,17 +51,13 @@ export default function NewsFaqCategoryNew() {
 		resolver: yupResolver(schema)
 	})
 	const { reset, handleSubmit, formState: { errors } } = setForm
-	const { data: mainPage } = useGetData(`/page/7`)
-	const pageId = mainPage?.data?.page_sub.find((page) => page.page_type === `faq`).page_id
-	const { data: pageData, isLoading } = useGetData(`/page/${pageId}`)
-	useLoading(isLoading)
 
 	async function onSubmit(data) {
 		dispatch({ type: `set_isLoading`, payload: true })
 		try {
 			await postData(`/page/create`, {
 				...data,
-				page_parent_id: pageData?.data?.page_id,
+				page_parent_id: pageId[`news-faq`],
 				page_type: `faq-category`,
 				page_status: data.page_status === true ? 1 : 2,
 			})

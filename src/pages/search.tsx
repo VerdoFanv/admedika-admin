@@ -8,6 +8,7 @@ import { DashboardContext } from "@contexts/DashboardContext.context"
 import useGetData from "@hooks/useGetData.hook"
 import useLoading from "@hooks/useLoading.hook"
 import { postData } from "@utils/fetcher"
+import { pageId } from "@variables/pageId.variable"
 import IconSidebar from "public/assets/icons/icon-sidebar.svg"
 import { useContext, useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
@@ -17,8 +18,7 @@ export default function Search() {
 	const [ showSidebar, setShowSidebar ] = useState(false)
 	const [ loading, setLoading ] = useState(true)
 
-	const { data: pageId } = useGetData(`/page/list-page-id`)
-	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId?.data?.page_id[`search`]}`)
+	const { data: pageData, isLoading: pageIsLoading } = useGetData(`/page/${pageId[`search`]}`)
 	const setForm = useForm<any>()
 	const { reset, handleSubmit } = setForm
 	useLoading(loading)
@@ -27,7 +27,7 @@ export default function Search() {
 		dispatch({ type: `set_isLoading`, payload: true })
 
 		try {
-			await postData(`/page/${pageId?.data?.page_id[`search`]}/update`, {
+			await postData(`/page/${pageId[`search`]}/update`, {
 				...data,
 				page_status: data.page_status === true ? 1 : 2,
 			})
