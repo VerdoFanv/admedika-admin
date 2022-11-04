@@ -14,6 +14,7 @@ import FormInput from "@components/form/FormInput.component"
 import TabsNavigation from "@components/util/Tabs.component"
 import FormRepeater from "@components/form/FormRepeater.component"
 import useLoading from "@hooks/useLoading.hook"
+import FormCheck from "@components/form/FormCheck.component"
 
 export function getServerSideProps({ query }) {
 	return {
@@ -121,6 +122,9 @@ export default function ProviderClientsSingleNew({ categoryId }) {
 											}
 										]}
 									/>
+									<div className="row">
+										<FormCheck setForm={setForm} name="page_status" label="Publish" type="checkbox"/>
+									</div>
 								</div>
 							</div>
 						</div>
