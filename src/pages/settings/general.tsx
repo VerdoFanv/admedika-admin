@@ -699,6 +699,9 @@ export default function SettingGeneral() {
 							<div className="form-fieldset">
 								<div className="form-fieldset-body">
 									<div className="row">
+										<FormTextarea setForm={setForm} name="text.tawk_to_embed_code" label="Tawk.to Embed Code" />
+									</div>
+									<div className="row">
 										<FormInput setForm={setForm} label="Session Login Time In (Hours)" name="text.session_login" error={errors?.text?.session_login} />
 									</div>
 									<div className="row">
