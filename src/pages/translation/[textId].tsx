@@ -72,7 +72,7 @@ export default function TextHardcodeId({ textId }) {
 						parent={<><Link href={breadcrumb[0]}>Text Hardcode</Link></>}
 						action={
 							<Access
-								auth="write:translation"
+								auth="write:translation-general"
 								yes={
 									<ul className="actions">
 										<li className="action">
