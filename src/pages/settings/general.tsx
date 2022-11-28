@@ -61,7 +61,8 @@ export default function SettingGeneral() {
 			text: {
 				...data.text,
 				force_webp: data.text.force_webp ? `1` : `0`,
-				enable_multilang: data.text.enable_multilang ? `1` : `0`
+				enable_multilang: data.text.enable_multilang ? `1` : `0`,
+				show_live_chat: data.text.show_live_chat ? `1` : `0`
 			}
 		}
 
@@ -89,7 +90,8 @@ export default function SettingGeneral() {
 				text: {
 					...pageData.data.text,
 					force_webp: pageData.data.text.force_webp === `1` ? true : false,
-					enable_multilang: pageData.data.text.enable_multilang === `1` ? true : false
+					enable_multilang: pageData.data.text.enable_multilang === `1` ? true : false,
+					show_live_chat: pageData.data.text.show_live_chat === `1` ? true : false
 				}
 			})
 		}
@@ -700,6 +702,9 @@ export default function SettingGeneral() {
 								<div className="form-fieldset-body">
 									<div className="row">
 										<FormTextarea setForm={setForm} name="text.tawk_to_embed_code" label="Tawk.to Embed Code" />
+									</div>
+									<div className="row">
+										<FormCheck setForm={setForm} name="text.show_live_chat" type="checkbox" label="Toggle live chat button" />
 									</div>
 									<div className="row">
 										<FormInput setForm={setForm} label="Session Login Time In (Hours)" name="text.session_login" error={errors?.text?.session_login} />
